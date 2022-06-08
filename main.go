@@ -28,8 +28,8 @@ func (p *PreviewConfig) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", mime.TypeByExtension(filepath.Ext(ss[len(ss)-1])))
 		w.Write(b)
 	} else {
-		w.Header().Set("Cross-Origin-Opener-Policy", "same-origin")
-		w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
+		//w.Header().Set("Cross-Origin-Opener-Policy", "same-origin")
+		//w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
 		b, err = f.ReadFile("ui/index.html")
 		w.Write(b)
 	}
