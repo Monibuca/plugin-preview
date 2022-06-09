@@ -46,4 +46,4 @@
                 </select>
                 <button id="changeType">切换</button>
             </div>
-            `;document.body.insertAdjacentHTML("beforeend",Me)}document.querySelector("#changeType").addEventListener("click",()=>{var e=document.querySelector("#typeSelect");if(e.value&&e.value!==F.type){const t=window.location.href;window.location.href=t.replace(F.type,e.value)}},!1),new Pe({container:document.querySelector(".jessibuca-pro-wrap"),showBandwidth:!0,debug:"true"===F.debug}).play(e).then(()=>{console.log("play success")}).catch(e=>{console.error("play error",e)})}}});
+            `;document.body.insertAdjacentHTML("beforeend",Me)}document.querySelector("#changeType").addEventListener("click",()=>{var e=document.querySelector("#typeSelect");if(e.value&&e.value!==F.type){const t=window.location.href;window.location.href=t.replace(F.type,e.value)}},!1),new Pe({container:document.querySelector(".jessibuca-pro-wrap"),showBandwidth:!0,debug:"true"===F.debug,useWCS:!0,wcsUseVideoRender:!0,videoBuffer:0}).play(e).then(()=>{console.log("play success")}).catch(e=>{console.error("play error",e)})}}});
