@@ -21,4 +21,9 @@ import (
 ## API
 
 - `/preview/[streamPath]?type=[hdl|hls|ws|wt|rtc]` 可用于预览直播流
-- `/preview/[filepath]` 可用于预览录像文件
+- `/preview/[filepath]` 可用于预览录像文件（开发中）
+
+## 使用WebTransport注意事项
+
+- 本地测试需要本地启动https服务，并配置有效的证书
+- 由于证书与域名绑定，所以需要host里面配置对应的域名 例如：`127.0.0.1  monibuca.com`
