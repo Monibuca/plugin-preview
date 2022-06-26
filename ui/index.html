@@ -5,6 +5,20 @@
     <title>M7s Preview 预览</title>
 </head>
 <body>
+<a href="javascript:void 0" id="unmute">解除静音</a>
 <script src="jessibuca-pro.js"></script>
+<script>
+  (function(){
+    var ctx = new AudioContext();
+    if(ctx.state == "running"){
+      document.getElementById("unmute").style.display = "none";
+    } else {
+      ctx.onstatechange = ()=> {
+      if(ctx.state == 'running'){
+        document.getElementById("unmute").style.display = "none";
+      }
+    }}
+  })()
+</script>
 </body>
 </html>
