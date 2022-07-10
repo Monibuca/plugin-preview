@@ -25,8 +25,8 @@ var plugin = InstallPlugin(&PreviewConfig{})
 
 func (p *PreviewConfig) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/preview/" {
-		Streams.Range(func(s *Stream) {
-			w.Write([]byte(fmt.Sprintf("<a href='%s'>%s</a><br>", s.Path, s.Path)))
+		Streams.Range(func(streamPath string, s *Stream) {
+			w.Write([]byte(fmt.Sprintf("<a href='%s'>%s</a><br>", streamPath, streamPath)))
 		})
 		return
 	}
