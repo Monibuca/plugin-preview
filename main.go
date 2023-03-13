@@ -27,8 +27,8 @@ var _ = InstallPlugin(&PreviewConfig{})
 func (p *PreviewConfig) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/preview/" {
 		var s string
-		Streams.Range(func(streamPath string, _ *Stream) {
-			s += fmt.Sprintf("<a href='%s'>%s</a><br>", streamPath, streamPath)
+		Streams.Range(func(streamPath string, stream *Stream) {
+			s += fmt.Sprintf("<a href='%s'>%s</a> [ %s ]<br>", streamPath, streamPath, stream.GetType())
 		})
 		if s != "" {
 			s = "<b>Live Streams</b><br>" + s
