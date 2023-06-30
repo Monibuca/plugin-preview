@@ -543,7 +543,7 @@
 
     $protocol.addEventListener('change', function () {
       if ($protocol.value === 'webtransport')
-        location.replace('https://local.monibuca.com:8081' + location.pathname + '?type=' + $protocol.value);
+        location.replace('https://local.monibuca.com:8443' + location.pathname + '?type=' + $protocol.value);
       else
         location.replace(location.origin + location.pathname + '?type=' + $protocol.value);
     });
