@@ -26,17 +26,15 @@ var _ = InstallPlugin(&PreviewConfig{})
 
 func (p *PreviewConfig) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
-		var s string
+		s := "<h1><h1><h2>Live Streams 引擎中正在发布的流</h2>"
 		Streams.Range(func(streamPath string, stream *Stream) {
 			s += fmt.Sprintf("<a href='%s'>%s</a> [ %s ]<br>", streamPath, streamPath, stream.GetType())
 		})
-		if s != "" {
-			s = "<b>Live Streams</b><br>" + s
-		}
+		s+= "<h2>pull stream on subscribe 订阅时才会触发拉流的流</h2>"
 		for name, p := range Plugins {
 			if pullcfg, ok := p.Config.(config.PullConfig); ok {
 				if pullonsub := pullcfg.GetPullConfig().PullOnSub; pullonsub != nil {
-					s += fmt.Sprintf("<b>%s pull stream on subscribe</b><br>", name)
+					s += fmt.Sprintf("<h3>%s</h3>", name)
 					for streamPath, url := range pullonsub {
 						s += fmt.Sprintf("<a href='%s'>%s</a> <-- %s<br>", streamPath, streamPath, url)
 					}
