@@ -30,15 +30,18 @@ func (p *PreviewConfig) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Streams.Range(func(streamPath string, stream *Stream) {
 			s += fmt.Sprintf("<a href='%s'>%s</a> [ %s ]<br>", streamPath, streamPath, stream.GetType())
 		})
-		s+= "<h2>pull stream on subscribe 订阅时才会触发拉流的流</h2>"
+		s += "<h2>pull stream on subscribe 订阅时才会触发拉流的流</h2>"
 		for name, p := range Plugins {
 			if pullcfg, ok := p.Config.(config.PullConfig); ok {
-				if pullonsub := pullcfg.GetPullConfig().PullOnSub; pullonsub != nil {
+				pullconf := pullcfg.GetPullConfig()
+				pullconf.PullOnSubLocker.RLock()
+				if pullconf.PullOnSub != nil {
 					s += fmt.Sprintf("<h3>%s</h3>", name)
-					for streamPath, url := range pullonsub {
+					for streamPath, url := range pullconf.PullOnSub {
 						s += fmt.Sprintf("<a href='%s'>%s</a> <-- %s<br>", streamPath, streamPath, url)
 					}
 				}
+				pullconf.PullOnSubLocker.RUnlock()
 			}
 		}
 		w.Write([]byte(s))
