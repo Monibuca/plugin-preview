@@ -20,8 +20,14 @@ import (
 
 ## API
 
-- `/preview/[streamPath]?type=[hdl|hls|ws|wt|rtc]` 可用于预览直播流
-- `/preview/[filepath]` 可用于预览录像文件（开发中）
+### GET `/preview` 
+视频流预览页面
+
+### GET `/preview/[streamPath]?type=[hdl|hls|ws|wt|rtc]`
+预览指定的视频流，比如 `preview/live/test?type=ws`, 使用 ws 方式预览 live/test 直播流 
+
+### GET `/preview/[filepath]`
+（开发中）预览制定的录像文件，比如 `preview/record/flv/xxx.flv` 
 
 ## 使用WebTransport注意事项
 
