@@ -40,7 +40,7 @@
     }
 
     .container-shell:before {
-      content: "preview powered by jessibuca pro";
+      content: "preview powered by jessibuca pro (v2.1.4)";
       position: absolute;
       color: darkgray;
       top: 4px;
@@ -109,9 +109,18 @@
     <div class="container-shell">
       <div id="container"></div>
       <div class="input">
-        <div><input type="checkbox" checked id="useMSE" /><span>MediaSource</span>
-          <input type="checkbox" id="useWCS" /><span>Webcodec</span>
-          <input type="checkbox" id="useSIMD" /><span>SIMD</span>
+        <div>
+          <div>
+            <span style="color: green">硬解码：</span>
+             <input type="checkbox" checked id="useMSE" /><span>MediaSource</span>
+            <input type="checkbox" id="useWCS" /><span>Webcodec</span>
+          </div>
+          <div>
+            <span style="color:red;">软解码：</span>
+            <input type="checkbox" id="useWASM" disabled checked/> <span>WASM(默认)</span>
+            <input type="checkbox" id="useSIMD" /><span>WASM SIMD</span>
+            <input type="checkbox" id="useSIMDV2" /><span>WASM SIMD(V2)</span>
+          </div>
         </div>
       </div>
       <div class="input">
@@ -325,6 +334,8 @@
     var $destroy = document.getElementById('destroy');
     var $useMSE = document.getElementById('useMSE');
     var $useSIMD = document.getElementById('useSIMD');
+    var $useSIMDV2 = document.getElementById('useSIMDV2');
+    var $useWASM = document.getElementById('useWASM');
     var $useWCS = document.getElementById('useWCS');
     var $videoBuffer = document.getElementById('videoBuffer');
     var $videoBufferDelay = document.getElementById('videoBufferDelay');
@@ -413,6 +424,7 @@
         useMSE: $useMSE.checked === true,
         useSIMD: $useSIMD.checked === true,
         useWCS: $useWCS.checked === true,
+        isFFmpegSIMD: $useSIMDV2.checked === true,
         showBandwidth: showOperateBtns, // 显示网速
         showPerformance: showOperateBtns, // 显示性能
         operateBtns: {
@@ -463,7 +475,6 @@
       $destroy.style.display = 'none';
       $fps.textContent = '';
     }
-
 
     create();
 
@@ -521,6 +532,7 @@
       const checked = $useMSE.checked;
       if (checked) {
         $useSIMD.checked = false;
+        $useSIMDV2.checked = false;
         $useWCS.checked = false;
       }
       replay();
@@ -532,6 +544,19 @@
         $useMSE.checked = false;
         $useWCS.checked = false;
       }
+      else {
+        $useSIMDV2.checked = false;
+      }
+      replay();
+    });
+
+    $useSIMDV2.addEventListener('click', function () {
+      const checked = $useSIMDV2.checked;
+      if (checked) {
+        $useSIMD.checked = true;
+        $useMSE.checked = false;
+        $useWCS.checked = false;
+      }
       replay();
     });
 
@@ -540,6 +565,7 @@
       if (checked) {
         $useMSE.checked = false;
         $useSIMD.checked = false;
+        $useSIMDV2.checked = false;
       }
       replay();
     });
